@@ -2,7 +2,7 @@
 # BASIC VARIABLES															   #
 ################################################################################
 
-SRCS				:= main.cpp
+SRCS				:= main.cpp Operand.cpp
 
 PATH_OBJ			:= obj
 PATH_OBJT			:= objt
