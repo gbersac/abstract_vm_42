@@ -9,8 +9,7 @@ export DEBUG		:= -g -O0
 # LIBRARY VARIABLES															   #
 ################################################################################
 
-export DIR_TYPE		:= libtype
-export DIR_LIB		:= $(DIR_TYPE)
+export DIR_LIB		:=
 export APP			:= abstract_vm
 
 ################################################################################

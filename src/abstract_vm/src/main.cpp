@@ -1,7 +1,9 @@
-#include "IOperand.hpp"
+#include "Stack.hpp"
+#include "Operand.hpp"
 
 int main()
 {
-	std::cout << foo() << std::endl;
+	//parsing
+	//execution of the vm
 	return 0;
 }

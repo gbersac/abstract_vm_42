@@ -1,22 +1,20 @@
-#include "Int8.hpp"
+#include "Stack.hpp"
 
 /******************************************************************************/
 /* Constructors                                                               */
 /******************************************************************************/
 
-Int8::Int8()
-		:  IOperand()
+Stack::Stack()
 {
 
 }
 
-Int8::Int8(Int8 const &model)
-		:  IOperand(model)
+Stack::Stack(Stack const &model)
 {
 	*this = model;
 }
 
-Int8::~Int8()
+Stack::~Stack()
 {
 
 }
@@ -25,67 +23,54 @@ Int8::~Int8()
 /* Getters Setters                                                            */
 /******************************************************************************/
 
-int getPrecision()
+VecOper const & Stack::getList()const
 {
-	 return (_type);
-}
-
-eOperandType getType()
-{
-	 return (_type);
+	return _list;
 }
 
 /******************************************************************************/
 /* Other Functions                                                            */
 /******************************************************************************/
 
-std::string	Int8::toString() const
+std::string	Stack::toString() const
 {
 	std::stringstream ss;
-	ss << _val;
+	ss << "Stack {" <<
+			"}";
 	return ss.str();
 }
 
-Int8& Int8::operator=(Int8 const &model)
+Stack& Stack::operator=(Stack const &model)
 {
-	_val = model._val;
-	_type = model._type;
+	_list = model._list;
 	return *this;
 }
 
-std::ostream &operator<<(std::ostream &o, Int8 const &i)
+std::ostream &operator<<(std::ostream &o, Stack const &i)
 {
 	o << i.toString();
 	return o;
 }
 
-Int8&	operator=(Int8 const &)
+Oper Stack::pop()
 {
-
+	// TODO throw exception
+	if (_list.size() == 0)
+		throw EmptyStackError();
+	Oper toReturn = _list.back();
+	_list.pop_back();
+	return (toReturn);
 }
 
-IOperand const * operator+( IOperand const & rhs )
+Oper Stack::last()
 {
-
+	// TODO throw exception
+	if (_list.size() == 0)
+		throw EmptyStackError();
+	return (_list.back());
 }
 
-IOperand const * operator-( IOperand const & rhs )
+void Stack::push(Oper o)
 {
-
+	_list.push_back(o);
 }
-
-IOperand const * operator*( IOperand const & rhs )
-{
-
-}
-
-IOperand const * operator/( IOperand const & rhs )
-{
-
-}
-
-IOperand const * operator%( IOperand const & rhs )
-{
-
-}
-

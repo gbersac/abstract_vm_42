@@ -2,7 +2,8 @@
 # BASIC VARIABLES															   #
 ################################################################################
 
-SRCS				:= main.cpp Operand.cpp
+SRCS				:= main.cpp Operand.cpp Stack.cpp Instruction.cpp \
+						error.cpp
 
 PATH_OBJ			:= obj
 PATH_OBJT			:= objt
@@ -20,12 +21,12 @@ TEST_CMD			:= $(patsubst %.cpp, $(PATH_OBJT)/%;, $(SRCS_TEST))
 # LIBRARY VARIABLES															   #
 ################################################################################
 
-export DIR_TYPE	:= ../libtype
+# export DIR_TYPE	:= ../libtype
 
-LIB_TYPE			:= -L$(DIR_TYPE) -ltype
+# LIB_TYPE			:= -L$(DIR_TYPE) -ltype
 
-export DIR_LIB 		:= $(DIR_TYPE)
-LIBRARY				:= $(LIB_TYPE)
+# export DIR_LIB 		:= $(DIR_TYPE)
+LIBRARY				:=
 INCLUDES			:= -I$(DIR_GLFW)/inc -I ~/.brew/include \
 						-I./$(PATH_INC) $(patsubst %,-I%/inc,$(DIR_LIB))
 
