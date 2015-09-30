@@ -59,4 +59,16 @@ public:
 	std::string msg() const;
 };
 
+/******************************************************************************/
+/* Execution Error                                                            */
+/******************************************************************************/
+
+class InvalidInstructionError: public ParseError
+{
+public:
+	InvalidInstructionError();
+	~InvalidInstructionError() throw();
+	std::string msg() const;
+};
+
 #endif

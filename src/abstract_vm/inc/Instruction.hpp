@@ -11,20 +11,21 @@
 class IInstruction
 {
 public:
-	virtual void execute(Stack &) = 0;
+	virtual void		execute(Stack &) = 0;
+	virtual std::string	toString()const = 0;
 };
 
 class ARichInstruction : public IInstruction
 {
 public:
 	//constructors
-	ARichInstruction();
+	ARichInstruction(const IOperand* value);
 	ARichInstruction(ARichInstruction const &);
 	virtual ~ARichInstruction();
 
 	//getters setters
-	IOperand*	getValue()const;
-	void		setValue(IOperand*);
+	IOperand const*	getValue()const;
+	void			setValue(IOperand*);
 
 	//other functions
 	std::string	toString()const;
@@ -32,63 +33,94 @@ public:
 	ARichInstruction&	operator=(ARichInstruction const &);
 
 protected:
-	IOperand*	_value;
+	ARichInstruction();
+	const IOperand*	_value;
 };
 
 std::ostream	&operator<<(std::ostream &o, ARichInstruction const &i);
 
 class InstrPush : public ARichInstruction
 {
+public:
+	InstrPush(const IOperand*);
+	std::string	toString()const;
 	void execute(Stack &s);
+
+protected:
+	InstrPush();
 };
 
 class InstrAssert : public ARichInstruction
 {
+public:
+	InstrAssert(const IOperand*);
+	std::string	toString()const;
 	void execute(Stack &s);
+
+protected:
+	InstrAssert();
 };
 
 class InstrPop  : public IInstruction
 {
+public:
+	std::string	toString()const;
 	void execute(Stack &s);
 };
 
 class InstrDump : public IInstruction
 {
+public:
+	std::string	toString()const;
 	void execute(Stack &s);
 };
 
 class InstrAdd : public IInstruction
 {
+public:
+	std::string	toString()const;
 	void execute(Stack &s);
 };
 
 class InstrSub : public IInstruction
 {
+public:
+	std::string	toString()const;
 	void execute(Stack &s);
 };
 
 class InstrMul : public IInstruction
 {
+public:
+	std::string	toString()const;
 	void execute(Stack &s);
 };
 
 class InstrDiv : public IInstruction
 {
+public:
+	std::string	toString()const;
 	void execute(Stack &s);
 };
 
 class InstrMod : public IInstruction
 {
+public:
+	std::string	toString()const;
 	void execute(Stack &s);
 };
 
 class InstrPrint : public IInstruction
 {
+public:
+	std::string	toString()const;
 	void execute(Stack &s);
 };
 
 class InstrExit : public IInstruction
 {
+public:
+	std::string	toString()const;
 	void execute(Stack &s);
 };
 

@@ -4,6 +4,7 @@
 
 #include "Stack.hpp"
 #include "Operand.hpp"
+#include "parse.hpp"
 
 std::string getFileContent(const char *filename)
 {
@@ -31,11 +32,21 @@ std::string getStdinContent()
 	return ss.str();
 }
 
+void		printInstructions(std::vector<IInstruction*> instructions)
+{
+	std::vector<IInstruction*>::iterator i;
+	for (i = instructions.begin() ; i != instructions.end() ; ++i) {
+		std::cout << (*i)->toString() << " ";
+	}
+}
+
 int			executeVM(std::string content)
 {
-	std::cout << content << std::endl;
-	//parse
-	//run
+	// std::cout << content << std::endl;
+	std::vector<IInstruction*> instructions = parse(content);
+	if (!hasParseError(-1))
+		printInstructions(instructions); std::cout << std::endl;
+		//run
 	return (0);
 }
 
@@ -48,12 +59,14 @@ int			main(int argc, char const *argv[])
 		int i = 1;
 		while (i < argc) {
 			std::string content;
+			std::cout << "For file: \033[1;32m" << argv[i] << "\033[0m" << std::endl;
 			try {
 				content = getFileContent(argv[i]);
 				executeVM(content);
 			} catch (int& e) {
 				std::cout << "Can't read file " << argv[i] << std::endl;
 			}
+			std::cout << std::endl;
 			++i;
 		}
 	}

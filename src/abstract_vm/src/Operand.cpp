@@ -2,7 +2,7 @@
 
 IOperand const * IOperand::createOperand(eOperandType type, std::string const & value)
 {
-	IOperand const * toReturn;
+	IOperand const * toReturn = NULL;
 	switch(type){
 		case INT8 :
 			toReturn = IOperand::createInt8(value);
@@ -53,4 +53,19 @@ IOperand const * IOperand::createDouble(std::string const & value)
 {
 	double	val = std::stod(value);
 	return (new Operand<double>(val, DOUBLE));
+}
+
+eOperandType operandTypeFromString(std::string &str)
+{
+	if ("int8" == str)
+		return INT8;
+	if ("int16" == str)
+		return INT16;
+	if ("int32" == str)
+		return INT32;
+	if ("float" == str)
+		return FLOAT;
+	if ("double" == str)
+		return DOUBLE;
+	return UNKNOW;
 }

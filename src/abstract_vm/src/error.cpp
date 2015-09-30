@@ -2,7 +2,7 @@
 
 const char* ParseError::what() const throw()
 {
-	std::string s = "ParseError: " + msg();
+	std::string s = msg();
 	return (s.c_str());
 }
 
@@ -47,5 +47,22 @@ std::string Not8bitIntError::msg() const
 {
 	std::stringstream ss;
 	ss << "The last value on the stack is not an 8bit int";
+	return ss.str();
+}
+
+/******************************************************************************/
+/* Execution Error                                                            */
+/******************************************************************************/
+
+InvalidInstructionError::InvalidInstructionError()
+{}
+
+InvalidInstructionError::~InvalidInstructionError() throw()
+{}
+
+std::string InvalidInstructionError::msg() const
+{
+	std::stringstream ss;
+	ss << "Invalid instruction";
 	return ss.str();
 }

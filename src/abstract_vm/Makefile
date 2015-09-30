@@ -3,7 +3,7 @@
 ################################################################################
 
 SRCS				:= main.cpp Operand.cpp Stack.cpp Instruction.cpp \
-						error.cpp
+						error.cpp parse.cpp
 
 PATH_OBJ			:= obj
 PATH_OBJT			:= objt

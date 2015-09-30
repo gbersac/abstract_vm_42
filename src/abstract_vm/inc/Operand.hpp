@@ -14,8 +14,11 @@ typedef enum	OperandType
 	INT16,
 	INT32,
 	FLOAT,
-	DOUBLE
+	DOUBLE,
+	UNKNOW
 }				eOperandType;
+
+eOperandType operandTypeFromString(std::string &);
 
 class IOperand {
 public:
