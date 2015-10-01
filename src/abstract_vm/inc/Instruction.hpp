@@ -13,6 +13,7 @@ class IInstruction
 public:
 	virtual int		execute(Stack &) = 0;
 	virtual std::string	toString()const = 0;
+	virtual bool	isExit();
 };
 
 class ARichInstruction : public IInstruction
@@ -122,6 +123,7 @@ class InstrExit : public IInstruction
 public:
 	std::string	toString()const;
 	int execute(Stack &s);
+	bool isExit();
 };
 
 #endif /*INSTRUCTION_HEADER*/

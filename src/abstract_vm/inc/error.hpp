@@ -88,4 +88,11 @@ public:
 	std::string msg() const;
 };
 
+class NoExitError: public ParseError
+{
+public:
+	NoExitError();
+	std::string msg() const;
+};
+
 #endif

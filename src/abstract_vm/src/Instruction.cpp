@@ -1,5 +1,10 @@
 #include "Instruction.hpp"
 
+bool	IInstruction::isExit()
+{
+	return false;
+}
+
 /******************************************************************************/
 /* ARichInstruction                                                            */
 /******************************************************************************/
@@ -240,4 +245,9 @@ std::string InstrExit::toString()const
 int InstrExit::execute(Stack &)
 {
 	return 0;
+}
+
+bool	InstrExit::isExit()
+{
+	return true;
 }

@@ -196,6 +196,16 @@ IInstruction* parseLine(std::string &line)
 	return NULL;
 }
 
+bool hasExit(std::vector<IInstruction*> ins)
+{
+	std::vector<IInstruction*>::iterator it;
+	for (it = ins.begin(); it != ins.end(); ++it){
+		if ((*it)->isExit())
+			return true;
+	}
+	return false;
+}
+
 std::vector<IInstruction*> parse(std::string &str)
 {
 	std::istringstream f(str);
@@ -219,6 +229,10 @@ std::vector<IInstruction*> parse(std::string &str)
 		}
 		++lineNumber;
 	}
+	if (!hasExit(toReturn)){
+		std::cout << "\033[1;31mParseError: no exit instruction\033[0m" << std::endl;
+		hasParseError(1);
+	}
 	return toReturn;
 }
 
@@ -230,3 +244,4 @@ bool hasParseError(int set)
 		hasError = set;
 	return hasError;
 }
+

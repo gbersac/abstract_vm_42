@@ -22,6 +22,7 @@ typedef enum	OperandType
 }				eOperandType;
 
 eOperandType operandTypeFromString(std::string &);
+std::string operandTypeToString(eOperandType);
 
 class IOperand {
 public:
@@ -92,6 +93,14 @@ template <typename T>
 Operand<T>::Operand(T value, eOperandType type)
 		: type(type), value(value), str(std::to_string(value))
 {
+	if (type == INT8) {
+		if (value <= -128 || value >= 127)
+			throw OverflowError();
+	}
+	if (type == INT16) {
+		if (value <= -32767 || value >= +32767)
+			throw OverflowError();
+	}
 }
 
 template <typename T>
@@ -136,44 +145,46 @@ IOperand const * 	Operand<T>::operator+(IOperand const & rhs) const
 {
 	eOperandType newType = mostPreciseType(rhs);
 	double rvalue = std::stod(rhs.toString());
-	return (new Operand(rvalue + this->value, newType));
+	return (IOperand::createOperand(newType, std::to_string(rvalue + this->value)));
 }
 
 template <typename T>
-IOperand const * 	Operand<T>::operator-( IOperand const & rhs) const
+IOperand const * 	Operand<T>::operator-(IOperand const & rhs) const
 {
 	eOperandType newType = mostPreciseType(rhs);
 	double rvalue = std::stod(rhs.toString());
-	return (new Operand(this->value - rvalue, newType));
+	return (IOperand::createOperand(newType, std::to_string(this->value - rvalue)));
 }
 
 template <typename T>
-IOperand const *	Operand<T>::operator*( IOperand const & rhs) const
+IOperand const *	Operand<T>::operator*(IOperand const & rhs) const
 {
 	eOperandType newType = mostPreciseType(rhs);
 	double rvalue = std::stod(rhs.toString());
-	return (new Operand(rvalue * this->value, newType));
+	return (IOperand::createOperand(newType, std::to_string(rvalue * this->value)));
 }
 
 template <typename T>
-IOperand const *	Operand<T>::operator/( IOperand const & rhs) const
+IOperand const *	Operand<T>::operator/(IOperand const & rhs) const
 {
 	eOperandType newType = mostPreciseType(rhs);
 	double rvalue = std::stod(rhs.toString());
 	if (rvalue == 0)
 		throw RvalueZeroError();
-	return (new Operand(this->value / rvalue, newType));
+	return (IOperand::createOperand(newType, std::to_string(this->value / rvalue)));
 }
 
 template <typename T>
-IOperand const *	Operand<T>::operator%( IOperand const & rhs) const
+IOperand const *	Operand<T>::operator%(IOperand const & rhs) const
 {
 	eOperandType newType = mostPreciseType(rhs);
 	if (newType == DOUBLE || newType == FLOAT)
 		newType = INT32;
 	int lvalue = static_cast<int>(this->value);
 	int rvalue = std::stoi(rhs.toString());
-	return (new Operand(lvalue % rvalue, newType));
+	if (rvalue == 0)
+		throw RvalueZeroError();
+	return (IOperand::createOperand(newType, std::to_string(lvalue % rvalue)));
 }
 
 template <typename T>
@@ -199,8 +210,9 @@ eOperandType		Operand<T>::getType(void) const
 template <typename T>
 eOperandType		Operand<T>::mostPreciseType(IOperand const & rhs) const
 {
-	if (this->type > rhs.getType())
+	if (this->type > rhs.getType()){
 		return (this->type);
+	}
 	return (rhs.getType());
 }
 

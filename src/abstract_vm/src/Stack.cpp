@@ -55,7 +55,6 @@ std::ostream &operator<<(std::ostream &o, Stack const &i)
 Oper Stack::pop()
 {
 	if (_list.size() == 0){
-		printf("error\n");
 		throw EmptyStackError();
 	}
 	Oper toReturn = _list.front();

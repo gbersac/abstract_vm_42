@@ -89,6 +89,16 @@ OverflowError::~OverflowError() throw()
 std::string OverflowError::msg() const
 {
 	std::stringstream ss;
-	ss << "Error, value is out of bound (overflow or underflow)";
+	ss << "Value is out of bound (overflow or underflow)";
+	return ss.str();
+}
+
+NoExitError::NoExitError()
+{}
+
+std::string NoExitError::msg() const
+{
+	std::stringstream ss;
+	ss << "No exit instruction";
 	return ss.str();
 }

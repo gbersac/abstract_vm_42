@@ -1,4 +1,0 @@
-push int32(42)
-assert int8(42)
-
-exit

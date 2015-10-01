@@ -1,6 +1,0 @@
-push double(1.79769e+308)
-push double(0)
-dump
-mod
-dump
-exit

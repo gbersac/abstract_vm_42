@@ -27,8 +27,8 @@ IOperand const * IOperand::createOperand(eOperandType type, std::string const & 
 
 IOperand const * IOperand::createInt8(std::string const & value)
 {
-	int	val = std::stoi(value);
-	if (val < SCHAR_MIN || val > SCHAR_MAX)
+ 	int	val = std::stoi(value);
+	if (val <= -128 || val >= 127)
 		throw OverflowError();
 	return (new Operand<int8_t>(val, INT8));
 }
@@ -36,7 +36,7 @@ IOperand const * IOperand::createInt8(std::string const & value)
 IOperand const * IOperand::createInt16(std::string const & value)
 {
 	int16_t	val = std::stoi(value);
-	if (val < -32767 || val > +32767)
+	if (val <= -32767 || val >= +32767)
 		throw OverflowError();
 	return (new Operand<int16_t>(val, INT16));
 }
@@ -72,4 +72,19 @@ eOperandType operandTypeFromString(std::string &str)
 	if ("double" == str)
 		return DOUBLE;
 	return UNKNOW;
+}
+
+std::string operandTypeToString(eOperandType op)
+{
+	if (INT8 == op)
+		return "int8";
+	if (INT16 == op)
+		return "int16";
+	if (INT32 == op)
+		return "int32";
+	if (FLOAT == op)
+		return "float";
+	if (DOUBLE == op)
+		return "double";
+	return "UNKNOW";
 }
