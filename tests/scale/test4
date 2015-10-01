@@ -1,0 +1,3 @@
+push int16(32 ;) ; parsing error
+pu int(32)) ; parsing error
+exit

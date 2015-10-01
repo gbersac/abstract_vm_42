@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 
+
 class IOperand;
 typedef IOperand const*	Oper;
 
@@ -14,6 +15,7 @@ typedef IOperand const*	Oper;
 
 class VMError: public std::exception
 {
+public:
 	virtual std::string	msg() const = 0;
 	virtual char const * what() const throw() = 0;
 };
@@ -56,6 +58,13 @@ class Not8bitIntError: public ExecutionError
 {
 public:
 	Not8bitIntError();
+	std::string msg() const;
+};
+
+class RvalueZeroError: public ExecutionError
+{
+public:
+	RvalueZeroError();
 	std::string msg() const;
 };
 

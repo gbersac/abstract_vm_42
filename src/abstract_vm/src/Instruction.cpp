@@ -74,9 +74,10 @@ std::string InstrPush::toString()const
 	return ss.str();
 }
 
-void InstrPush::execute(Stack &s)
+int InstrPush::execute(Stack &s)
 {
 	s.push(_value);
+	return 1;
 }
 
 InstrAssert::InstrAssert(const IOperand*op)
@@ -93,11 +94,12 @@ std::string InstrAssert::toString()const
 	return ss.str();
 }
 
-void InstrAssert::execute(Stack &s)
+int InstrAssert::execute(Stack &s)
 {
 	Oper last = s.last();
-	if (_value != last)
+	if (!(*_value == *last))
 		throw AssertError(_value, last);
+	return 1;
 }
 
 std::string InstrPop::toString()const
@@ -107,9 +109,10 @@ std::string InstrPop::toString()const
 	return ss.str();
 }
 
-void InstrPop::execute(Stack &s)
+int InstrPop::execute(Stack &s)
 {
 	s.pop();
+	return 1;
 }
 
 std::string InstrDump::toString()const
@@ -119,13 +122,16 @@ std::string InstrDump::toString()const
 	return ss.str();
 }
 
-void InstrDump::execute(Stack &s)
+int InstrDump::execute(Stack &s)
 {
 	VecOper opers = s.getList();
 	VecOper::iterator it;
+	int stackNb = 1;
 	for(it = opers.begin(); it != opers.end(); ++it) {
-		std::cout << *it << std::endl;
+		std::cout << stackNb << ": " << (*it)->toString() << std::endl;
+		++stackNb;
 	};
+	return 1;
 }
 
 std::string InstrAdd::toString()const
@@ -135,12 +141,13 @@ std::string InstrAdd::toString()const
 	return ss.str();
 }
 
-void InstrAdd::execute(Stack &s)
+int InstrAdd::execute(Stack &s)
 {
-	Oper loper = s.pop();
 	Oper roper = s.pop();
+	Oper loper = s.pop();
 	Oper result = *loper + *roper;
 	s.push(result);
+	return 1;
 }
 
 std::string InstrSub::toString()const
@@ -150,12 +157,13 @@ std::string InstrSub::toString()const
 	return ss.str();
 }
 
-void InstrSub::execute(Stack &s)
+int InstrSub::execute(Stack &s)
 {
-	Oper loper = s.pop();
 	Oper roper = s.pop();
+	Oper loper = s.pop();
 	Oper result = *loper - *roper;
 	s.push(result);
+	return 1;
 }
 
 std::string InstrMul::toString()const
@@ -165,12 +173,13 @@ std::string InstrMul::toString()const
 	return ss.str();
 }
 
-void InstrMul::execute(Stack &s)
+int InstrMul::execute(Stack &s)
 {
-	Oper loper = s.pop();
 	Oper roper = s.pop();
+	Oper loper = s.pop();
 	Oper result = *loper * *roper;
 	s.push(result);
+	return 1;
 }
 
 std::string InstrDiv::toString()const
@@ -180,12 +189,13 @@ std::string InstrDiv::toString()const
 	return ss.str();
 }
 
-void InstrDiv::execute(Stack &s)
+int InstrDiv::execute(Stack &s)
 {
-	Oper loper = s.pop();
 	Oper roper = s.pop();
+	Oper loper = s.pop();
 	Oper result = *loper / *roper;
 	s.push(result);
+	return 1;
 }
 
 std::string InstrMod::toString()const
@@ -195,12 +205,13 @@ std::string InstrMod::toString()const
 	return ss.str();
 }
 
-void InstrMod::execute(Stack &s)
+int InstrMod::execute(Stack &s)
 {
-	Oper loper = s.pop();
 	Oper roper = s.pop();
+	Oper loper = s.pop();
 	Oper result = *loper % *roper;
 	s.push(result);
+	return 1;
 }
 
 std::string InstrPrint::toString()const
@@ -210,12 +221,13 @@ std::string InstrPrint::toString()const
 	return ss.str();
 }
 
-void InstrPrint::execute(Stack &s)
+int InstrPrint::execute(Stack &s)
 {
 	Oper last = s.last();
 	if (last->getType() != INT8)
 		throw Not8bitIntError();
-	std::cout << last << std::endl;
+	std::cout << static_cast<char>(std::stoi((*last).toString())) << std::endl;
+	return 1;
 }
 
 std::string InstrExit::toString()const
@@ -225,7 +237,7 @@ std::string InstrExit::toString()const
 	return ss.str();
 }
 
-void InstrExit::execute(Stack &s)
+int InstrExit::execute(Stack &)
 {
-	s.pop();
+	return 0;
 }

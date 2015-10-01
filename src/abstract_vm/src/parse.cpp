@@ -208,6 +208,10 @@ std::vector<IInstruction*> parse(std::string &str)
 			IInstruction* newi = parseLine(line);
 			if (newi != NULL)
 				toReturn.push_back(newi);
+		} catch (VMError &e) {
+			std::cout << "\033[1;31mParseError line " << lineNumber << ": \033[0m"
+					<< e.msg() << std::endl << line  << std::endl;
+				hasParseError(1);
 		} catch (std::exception &e) {
 			std::cout << "\033[1;31mParseError line " << lineNumber << ": \033[0m"
 					<< e.what() << std::endl << line  << std::endl;

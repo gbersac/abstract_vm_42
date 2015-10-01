@@ -3,13 +3,14 @@
 
 #include <iostream>
 #include <sstream>
-#include <vector>
+// #include <vector>
+#include <deque>
 
 #include "Operand.hpp"
 #include "error.hpp"
 
 typedef IOperand const*		Oper;
-typedef std::vector<Oper> 	VecOper;
+typedef std::deque<Oper> 	VecOper;
 
 class Stack
 {

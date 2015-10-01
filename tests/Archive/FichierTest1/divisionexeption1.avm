@@ -1,5 +1,0 @@
-push int32(94574935)
-push double(0)
-dump
-div
-exit

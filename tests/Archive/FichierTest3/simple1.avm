@@ -1,9 +1,0 @@
-; -----------
-; simple1.avm
-; -----------
-
-push int8(120)
-push int8(42)
-add
-dump
-

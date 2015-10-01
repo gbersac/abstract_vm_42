@@ -5,6 +5,7 @@
 #include "Stack.hpp"
 #include "Operand.hpp"
 #include "parse.hpp"
+#include "VM.hpp"
 
 std::string getFileContent(const char *filename)
 {
@@ -42,12 +43,13 @@ void		printInstructions(std::vector<IInstruction*> instructions)
 
 int			executeVM(std::string content)
 {
-	// std::cout << content << std::endl;
 	std::vector<IInstruction*> instructions = parse(content);
-	if (!hasParseError(-1))
-		printInstructions(instructions); std::cout << std::endl;
-		//run
-	return (0);
+	if (hasParseError(-1))
+		return 0;
+	VM vm(instructions);
+	vm.execute();
+	// printInstructions(instructions); std::cout << std::endl;
+	return (1);
 }
 
 int			main(int argc, char const *argv[])

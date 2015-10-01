@@ -54,23 +54,23 @@ std::ostream &operator<<(std::ostream &o, Stack const &i)
 
 Oper Stack::pop()
 {
-	// TODO throw exception
-	if (_list.size() == 0)
+	if (_list.size() == 0){
+		printf("error\n");
 		throw EmptyStackError();
-	Oper toReturn = _list.back();
-	_list.pop_back();
+	}
+	Oper toReturn = _list.front();
+	_list.pop_front();
 	return (toReturn);
 }
 
 Oper Stack::last()
 {
-	// TODO throw exception
 	if (_list.size() == 0)
 		throw EmptyStackError();
-	return (_list.back());
+	return (_list.front());
 }
 
 void Stack::push(Oper o)
 {
-	_list.push_back(o);
+	_list.push_front(o);
 }

@@ -55,8 +55,9 @@ public:
 	Operand(T value, eOperandType type);
 	Operand(Operand const &);
 	virtual ~Operand();
-	int getPrecision(void) const;
-	eOperandType getType(void) const;
+	int				getPrecision(void) const;
+	eOperandType	getType(void) const;
+	T				getValue() const;
 
 	Operand&			operator=(Operand const &);
 	IOperand const *	operator+(IOperand const & rhs) const;
@@ -103,6 +104,12 @@ template <typename T>
 Operand<T>::~Operand()
 {
 
+}
+
+template <typename T>
+T Operand<T>::getValue()const
+{
+	return value;
 }
 
 template <typename T>
@@ -153,6 +160,8 @@ IOperand const *	Operand<T>::operator/( IOperand const & rhs) const
 {
 	eOperandType newType = mostPreciseType(rhs);
 	double rvalue = std::stod(rhs.toString());
+	if (rvalue == 0)
+		throw RvalueZeroError();
 	return (new Operand(this->value / rvalue, newType));
 }
 

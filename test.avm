@@ -1,8 +1,9 @@
-;
-     ;
-
-
-push int8(5)
-push float(5.3)
-assert int32(41)
-exit   ;
+push int8(1)
+push int8(2)
+push int8(3)
+dump
+assert int8(3)
+pop
+assert int8(2)
+pop
+assert int8(1)

@@ -1,3 +1,4 @@
+#include "Operand.hpp"
 #include "error.hpp"
 
 const char* ParseError::what() const throw()
@@ -8,7 +9,7 @@ const char* ParseError::what() const throw()
 
 char const * ExecutionError::what() const throw()
 {
-	std::string s = "ExecutionError: " + msg();
+	std::string s = msg();
 	return (s.c_str());
 }
 
@@ -24,7 +25,8 @@ AssertError::AssertError(Oper expected, Oper real)
 std::string AssertError::msg() const
 {
 	std::stringstream ss;
-	ss << "Assertion failed. Expected: " << _expected << " found: " << _real;
+	ss << "Assertion failed. Expected " << _expected->toString() <<
+			" found " << _real->toString();
 	return ss.str();
 }
 
@@ -47,6 +49,17 @@ std::string Not8bitIntError::msg() const
 {
 	std::stringstream ss;
 	ss << "The last value on the stack is not an 8bit int";
+	return ss.str();
+}
+
+RvalueZeroError::RvalueZeroError()
+{
+}
+
+std::string RvalueZeroError::msg() const
+{
+	std::stringstream ss;
+	ss << "The rvalue is zeros, forbidden operation";
 	return ss.str();
 }
 

@@ -11,7 +11,7 @@
 class IInstruction
 {
 public:
-	virtual void		execute(Stack &) = 0;
+	virtual int		execute(Stack &) = 0;
 	virtual std::string	toString()const = 0;
 };
 
@@ -44,7 +44,7 @@ class InstrPush : public ARichInstruction
 public:
 	InstrPush(const IOperand*);
 	std::string	toString()const;
-	void execute(Stack &s);
+	int execute(Stack &s);
 
 protected:
 	InstrPush();
@@ -55,7 +55,7 @@ class InstrAssert : public ARichInstruction
 public:
 	InstrAssert(const IOperand*);
 	std::string	toString()const;
-	void execute(Stack &s);
+	int execute(Stack &s);
 
 protected:
 	InstrAssert();
@@ -65,63 +65,63 @@ class InstrPop  : public IInstruction
 {
 public:
 	std::string	toString()const;
-	void execute(Stack &s);
+	int execute(Stack &s);
 };
 
 class InstrDump : public IInstruction
 {
 public:
 	std::string	toString()const;
-	void execute(Stack &s);
+	int execute(Stack &s);
 };
 
 class InstrAdd : public IInstruction
 {
 public:
 	std::string	toString()const;
-	void execute(Stack &s);
+	int execute(Stack &s);
 };
 
 class InstrSub : public IInstruction
 {
 public:
 	std::string	toString()const;
-	void execute(Stack &s);
+	int execute(Stack &s);
 };
 
 class InstrMul : public IInstruction
 {
 public:
 	std::string	toString()const;
-	void execute(Stack &s);
+	int execute(Stack &s);
 };
 
 class InstrDiv : public IInstruction
 {
 public:
 	std::string	toString()const;
-	void execute(Stack &s);
+	int execute(Stack &s);
 };
 
 class InstrMod : public IInstruction
 {
 public:
 	std::string	toString()const;
-	void execute(Stack &s);
+	int execute(Stack &s);
 };
 
 class InstrPrint : public IInstruction
 {
 public:
 	std::string	toString()const;
-	void execute(Stack &s);
+	int execute(Stack &s);
 };
 
 class InstrExit : public IInstruction
 {
 public:
 	std::string	toString()const;
-	void execute(Stack &s);
+	int execute(Stack &s);
 };
 
 #endif /*INSTRUCTION_HEADER*/
