@@ -1,1 +1,1 @@
-./src/abstract_vm/abstract_vm ${@:2}
+./src/abstract_vm/abstract_vm ${@:1}

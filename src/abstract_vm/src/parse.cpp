@@ -53,7 +53,7 @@ const IOperand* isOperand(std::string &str)
 	//check for the number
 	std::smatch m;
 	if (type == DOUBLE || type == FLOAT){
-		static std::regex regFloat("[a-z0-9]+\\(([-]?[0-9]+.[0-9]*e?[+-]?[0-9]+)\\).*");
+		static std::regex regFloat("[a-z0-9]+\\(([-]?[0-9]+.?[0-9]*e?[+-]?[0-9]*)\\).*");
 		std::regex_search(str, m, regFloat);
 		return IOperand::createOperand(type, m[1]);
 	} else {
