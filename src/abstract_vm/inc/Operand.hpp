@@ -3,6 +3,9 @@
 
 # include <string>
 # include <iostream>
+# include <climits>
+
+# include "Error.hpp"
 
 /**
  * Type of the operand. Tydef are ordered by order of precision

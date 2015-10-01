@@ -60,7 +60,7 @@ public:
 };
 
 /******************************************************************************/
-/* Execution Error                                                            */
+/* Parsing Error                                                              */
 /******************************************************************************/
 
 class InvalidInstructionError: public ParseError
@@ -68,6 +68,14 @@ class InvalidInstructionError: public ParseError
 public:
 	InvalidInstructionError();
 	~InvalidInstructionError() throw();
+	std::string msg() const;
+};
+
+class OverflowError: public ParseError
+{
+public:
+	OverflowError();
+	~OverflowError() throw();
 	std::string msg() const;
 };
 

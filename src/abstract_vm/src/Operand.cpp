@@ -28,12 +28,16 @@ IOperand const * IOperand::createOperand(eOperandType type, std::string const & 
 IOperand const * IOperand::createInt8(std::string const & value)
 {
 	int	val = std::stoi(value);
+	if (val < SCHAR_MIN || val > SCHAR_MAX)
+		throw OverflowError();
 	return (new Operand<int8_t>(val, INT8));
 }
 
 IOperand const * IOperand::createInt16(std::string const & value)
 {
 	int16_t	val = std::stoi(value);
+	if (val < -32767 || val > +32767)
+		throw OverflowError();
 	return (new Operand<int16_t>(val, INT16));
 }
 

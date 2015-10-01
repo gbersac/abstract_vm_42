@@ -66,3 +66,16 @@ std::string InvalidInstructionError::msg() const
 	ss << "Invalid instruction";
 	return ss.str();
 }
+
+OverflowError::OverflowError()
+{}
+
+OverflowError::~OverflowError() throw()
+{}
+
+std::string OverflowError::msg() const
+{
+	std::stringstream ss;
+	ss << "Error, value is out of bound (overflow or underflow)";
+	return ss.str();
+}
